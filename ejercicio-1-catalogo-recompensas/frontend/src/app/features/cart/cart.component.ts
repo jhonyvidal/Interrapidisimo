@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { CartService } from '../../core/services/cart.service';
 import { AuthService } from '../../core/services/auth.service';
 import { CartItem, CheckoutResult } from '../../core/models/cart.model';
 import { extractErrorMessage } from '../../core/api-error';
+import { StateMessageComponent } from '../../shared/ui/state-message/state-message.component';
 
 @Component({
   selector: 'app-cart',
@@ -23,6 +24,7 @@ import { extractErrorMessage } from '../../core/api-error';
     MatCardModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    StateMessageComponent,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
@@ -31,6 +33,7 @@ export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
 
   readonly items = signal<CartItem[]>([]);
   readonly loading = signal(true);
@@ -103,6 +106,10 @@ export class CartComponent implements OnInit {
         this.load(); // el checkout pudo fallar por stock desactualizado; se refresca el carrito real
       },
     });
+  }
+
+  goToCatalog(): void {
+    this.router.navigate(['/catalogo']);
   }
 
   formatPrice(price: number): string {

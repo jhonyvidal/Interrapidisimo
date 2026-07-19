@@ -10,22 +10,23 @@
       <button mat-flat-button color="primary" routerLink="/catalogo">Seguir comprando</button>
     </div>
   } @else if (loading()) {
-    <div class="state-container">
-      <mat-spinner diameter="40"></mat-spinner>
-      <p>Cargando carrito...</p>
-    </div>
+    <app-state-message variant="loading" message="Cargando carrito..."></app-state-message>
   } @else if (errorMessage()) {
-    <div class="state-container">
-      <mat-icon class="state-icon error">error_outline</mat-icon>
-      <p>{{ errorMessage() }}</p>
-      <button mat-flat-button color="primary" (click)="load()">Reintentar</button>
-    </div>
+    <app-state-message
+      variant="error"
+      icon="error_outline"
+      [message]="errorMessage()!"
+      actionLabel="Reintentar"
+      (action)="load()"
+    ></app-state-message>
   } @else if (items().length === 0) {
-    <div class="state-container">
-      <mat-icon class="state-icon">shopping_cart</mat-icon>
-      <p>Tu carrito está vacío.</p>
-      <button mat-flat-button color="primary" routerLink="/catalogo">Ir al catálogo</button>
-    </div>
+    <app-state-message
+      variant="empty"
+      icon="shopping_cart"
+      message="Tu carrito está vacío."
+      actionLabel="Ir al catálogo"
+      (action)="goToCatalog()"
+    ></app-state-message>
   } @else {
     <div class="cart-list">
       @for (item of items(); track item.productId) {

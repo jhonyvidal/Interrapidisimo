@@ -5,11 +5,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from './core/services/auth.service';
+import { PointsBadgeComponent } from './shared/ui/points-badge/points-badge.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterLink, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, PointsBadgeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

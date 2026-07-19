@@ -15,18 +15,6 @@
   flex: 1 1 auto;
 }
 
-.points {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-right: 8px;
-  font-weight: 500;
-
-  mat-icon {
-    color: #ffd700;
-  }
-}
-
 main {
   min-height: calc(100vh - 64px);
 }

@@ -1,0 +1,13 @@
+<div class="state-container" [class]="variant">
+  @if (variant === 'loading') {
+    <mat-spinner diameter="40"></mat-spinner>
+  } @else {
+    <mat-icon class="state-icon">{{ icon }}</mat-icon>
+  }
+
+  <p>{{ message }}</p>
+
+  @if (actionLabel) {
+    <button mat-flat-button color="primary" (click)="action.emit()">{{ actionLabel }}</button>
+  }
+</div>

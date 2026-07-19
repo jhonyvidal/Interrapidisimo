@@ -5,10 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProductsService } from '../../core/services/products.service';
@@ -17,6 +15,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Product, PaginationMeta } from '../../core/models/product.model';
 import { extractErrorMessage } from '../../core/api-error';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { StateMessageComponent } from '../../shared/ui/state-message/state-message.component';
 
 const PAGE_SIZE = 8;
 
@@ -29,12 +28,11 @@ const PAGE_SIZE = 8;
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatProgressSpinnerModule,
     MatPaginatorModule,
     MatIconModule,
-    MatButtonModule,
     MatSnackBarModule,
     ProductCardComponent,
+    StateMessageComponent,
   ],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',

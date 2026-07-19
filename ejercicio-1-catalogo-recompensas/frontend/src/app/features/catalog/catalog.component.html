@@ -23,21 +23,21 @@
   </div>
 
   @if (loading()) {
-    <div class="state-container">
-      <mat-spinner diameter="40"></mat-spinner>
-      <p>Cargando productos...</p>
-    </div>
+    <app-state-message variant="loading" message="Cargando productos..."></app-state-message>
   } @else if (errorMessage()) {
-    <div class="state-container">
-      <mat-icon class="state-icon error">error_outline</mat-icon>
-      <p>{{ errorMessage() }}</p>
-      <button mat-flat-button color="primary" (click)="load()">Reintentar</button>
-    </div>
+    <app-state-message
+      variant="error"
+      icon="error_outline"
+      [message]="errorMessage()!"
+      actionLabel="Reintentar"
+      (action)="load()"
+    ></app-state-message>
   } @else if (products().length === 0) {
-    <div class="state-container">
-      <mat-icon class="state-icon">inventory_2</mat-icon>
-      <p>No encontramos productos con esos filtros.</p>
-    </div>
+    <app-state-message
+      variant="empty"
+      icon="inventory_2"
+      message="No encontramos productos con esos filtros."
+    ></app-state-message>
   } @else {
     <div class="product-grid">
       @for (product of products(); track product.id) {

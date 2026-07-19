@@ -25,25 +25,3 @@
   gap: 16px;
   margin-bottom: 24px;
 }
-
-.state-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 64px 16px;
-  color: rgba(0, 0, 0, 0.6);
-  text-align: center;
-}
-
-.state-icon {
-  font-size: 48px;
-  width: 48px;
-  height: 48px;
-  color: rgba(0, 0, 0, 0.3);
-
-  &.error {
-    color: #b3261e;
-  }
-}
