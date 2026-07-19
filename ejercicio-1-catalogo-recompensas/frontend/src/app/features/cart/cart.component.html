@@ -1,0 +1,67 @@
+<div class="cart-page">
+  <h1>Tu carrito</h1>
+
+  @if (checkoutResult(); as result) {
+    <div class="state-container success">
+      <mat-icon class="state-icon success">check_circle</mat-icon>
+      <h2>¡Compra realizada!</h2>
+      <p>Total pagado: {{ formatPrice(result.total) }}</p>
+      <p>Puntos ganados: +{{ result.pointsEarned }} pts (saldo: {{ result.pointsBalance }} pts)</p>
+      <button mat-flat-button color="primary" routerLink="/catalogo">Seguir comprando</button>
+    </div>
+  } @else if (loading()) {
+    <div class="state-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Cargando carrito...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="state-container">
+      <mat-icon class="state-icon error">error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+      <button mat-flat-button color="primary" (click)="load()">Reintentar</button>
+    </div>
+  } @else if (items().length === 0) {
+    <div class="state-container">
+      <mat-icon class="state-icon">shopping_cart</mat-icon>
+      <p>Tu carrito está vacío.</p>
+      <button mat-flat-button color="primary" routerLink="/catalogo">Ir al catálogo</button>
+    </div>
+  } @else {
+    <div class="cart-list">
+      @for (item of items(); track item.productId) {
+        <mat-card class="cart-item" [class.removing]="removingIds().has(item.productId)">
+          <img [src]="item.product.image" [alt]="item.product.name" />
+          <div class="info">
+            <h3>{{ item.product.name }}</h3>
+            <p class="unit-price">{{ formatPrice(item.product.price) }} c/u</p>
+            <p class="quantity">Cantidad: {{ item.quantity }}</p>
+          </div>
+          <div class="subtotal">{{ formatPrice(item.product.price * item.quantity) }}</div>
+          <button mat-icon-button (click)="removeItem(item.productId)" aria-label="Quitar producto">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </mat-card>
+      }
+    </div>
+
+    <mat-card class="summary">
+      <div class="summary-row">
+        <span>Total</span>
+        <span class="total">{{ formatPrice(total()) }}</span>
+      </div>
+      <button
+        mat-flat-button
+        color="primary"
+        class="full-width"
+        [disabled]="checkingOut()"
+        (click)="checkout()"
+      >
+        @if (checkingOut()) {
+          <mat-spinner diameter="20"></mat-spinner>
+        } @else {
+          Finalizar compra
+        }
+      </button>
+    </mat-card>
+  }
+</div>
