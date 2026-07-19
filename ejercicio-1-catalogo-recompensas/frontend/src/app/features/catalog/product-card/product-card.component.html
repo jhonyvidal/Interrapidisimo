@@ -1,0 +1,39 @@
+<mat-card class="product-card">
+  <div class="image-wrapper">
+    <img [src]="product.image" [alt]="product.name" loading="lazy" />
+    <button
+      mat-icon-button
+      class="favorite-btn"
+      [class.favorited]="favorited"
+      [disabled]="togglingFavorite"
+      (click)="toggleFavorite.emit(product)"
+      [attr.aria-label]="favorited ? 'Quitar de favoritos' : 'Marcar como favorito'"
+    >
+      <mat-icon>{{ favorited ? 'favorite' : 'favorite_border' }}</mat-icon>
+    </button>
+  </div>
+
+  <mat-card-content>
+    <mat-chip-set>
+      <mat-chip disabled>{{ product.category }}</mat-chip>
+    </mat-chip-set>
+    <h3 class="name">{{ product.name }}</h3>
+    <p class="price">{{ formatPrice(product.price) }}</p>
+    <p class="stock" [class.low]="product.stock <= 5">
+      {{ product.stock > 0 ? product.stock + ' disponibles' : 'Sin stock' }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-flat-button
+      color="primary"
+      class="full-width"
+      [disabled]="product.stock === 0 || addingToCart"
+      (click)="addToCart.emit(product)"
+    >
+      <mat-icon>add_shopping_cart</mat-icon>
+      {{ addingToCart ? 'Agregando...' : 'Agregar' }}
+    </button>
+  </mat-card-actions>
+</mat-card>

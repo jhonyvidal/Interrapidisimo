@@ -1,0 +1,65 @@
+<div class="catalog-page">
+  <div class="filters">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar por nombre</mat-label>
+      <input
+        matInput
+        [ngModel]="searchTerm()"
+        (ngModelChange)="onSearchInput($event)"
+        placeholder="Ej: audífonos"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="category-field">
+      <mat-label>Categoría</mat-label>
+      <mat-select [value]="selectedCategory()" (selectionChange)="onCategoryChange($event.value)">
+        <mat-option value="">Todas</mat-option>
+        @for (category of categories(); track category) {
+          <mat-option [value]="category">{{ category }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (loading()) {
+    <div class="state-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Cargando productos...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="state-container">
+      <mat-icon class="state-icon error">error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+      <button mat-flat-button color="primary" (click)="load()">Reintentar</button>
+    </div>
+  } @else if (products().length === 0) {
+    <div class="state-container">
+      <mat-icon class="state-icon">inventory_2</mat-icon>
+      <p>No encontramos productos con esos filtros.</p>
+    </div>
+  } @else {
+    <div class="product-grid">
+      @for (product of products(); track product.id) {
+        <app-product-card
+          [product]="product"
+          [favorited]="favoritedIds().has(product.id)"
+          [addingToCart]="addingIds().has(product.id)"
+          [togglingFavorite]="togglingIds().has(product.id)"
+          (addToCart)="addToCart($event)"
+          (toggleFavorite)="toggleFavorite($event)"
+        ></app-product-card>
+      }
+    </div>
+
+    @if (meta(); as m) {
+      <mat-paginator
+        [length]="m.total"
+        [pageSize]="m.limit"
+        [pageIndex]="m.page - 1"
+        [hidePageSize]="true"
+        (page)="onPageChange($event)"
+      ></mat-paginator>
+    }
+  }
+</div>
