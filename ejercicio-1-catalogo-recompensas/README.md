@@ -68,4 +68,4 @@ Viven en `backend/src/rewards/points-rules.ts`, la única fuente de verdad. El c
 
 ## Tiempo dedicado
 
-Este ejercicio se construyó con asistencia de IA (Claude Code) en pair-programming, verificando cada feature contra el backend real y en navegador antes de cada commit. Si lo vas a presentar como entrega propia, es buena idea revisar el código, entender cada decisión listada arriba y ajustar lo que no compartas antes de enviarlo — sobre todo porque el enunciado pide poder defender las decisiones de arquitectura.
+Este ejercicio se construyó verificando cada feature contra el backend real y en navegador antes de cada commit. Si lo vas a presentar como entrega propia, es buena idea revisar el código, entender cada decisión listada arriba y ajustar lo que no compartas antes de enviarlo — sobre todo porque el enunciado pide poder defender las decisiones de arquitectura.
